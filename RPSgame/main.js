@@ -1,18 +1,61 @@
-let computerMove = "";
-let myChoice = document.getElementById();
+const choiceArray = ["rock", "paper", "scissor"];
+let playreScore = 0;
+let computerScore = 0;
+const playerDisplay = document.getElementById("playerDisplay");
+const computerDisplay = document.getElementById("computerDisplay");
 
-//0 to 1/3 rock, 1/3 to 1/2 paper, 1/2 to 1 scissor
+const playerScoreDisplay = document.getElementById("playerScoreDisplay");
+const computerScoreDisplay = document.getElementById("computerScoreDisplay");
 
-function generateNum() {
-  const randomNum = Math.random();
+const play = (playerChoice) => {
 
-  console.log(randomNum);
+  let result = "";
 
-  if (randomNum >= 0 && randomNum < 1 / 3) {
-    computerMove = "rock";
-  } else if (randomNum >= 1 / 3 && randomNum < 2 / 3) {
-    computerMove = "paper";
-  } else if (randomNum >= 2 / 3 && randomNum < 1) {
-    computerMove = "scissors";
+  const computerChoice = choiceArray[Math.floor(Math.random() * 3)];
+
+  const resultDisplay = document.getElementById("result");
+
+  if (playerChoice === computerChoice) {
+    result = "IT'S A TIE!";
+  } else {
+    switch (playerChoice) {
+      case "rock":
+        result = computerChoice === "scissor" ? "YOU WIN!" : "YOU LOSE!";
+        break;
+
+      case "scissor":
+        result = computerChoice === "paper" ? "YOU WIN!" : "YOU LOSE!";
+        break;
+
+      case "paper":
+        result = computerChoice === "rock" ? "YOU WIN!" : "YOU LOSE!";
+        break;
+    }
   }
-}
+
+  playerDisplay.textContent = `PLAYER: ${playerChoice}`;
+  computerDisplay.textContent = `COMPUTER: ${computerChoice}`;
+  resultDisplay.textContent = result;
+
+  resultDisplay.classList.remove("win","lose");
+
+  if(result === "YOU WIN!"){
+    resultDisplay.classList.add("win");
+  }
+  else if(result === "YOU LOSE!"){
+    resultDisplay.classList.add("lose");
+  }
+
+  if(result ==="YOU WIN!"){
+    playreScore ++ ;
+    playerScoreDisplay.textContent = playreScore;
+  }
+  else if(result === "YOU LOSE!"){
+    computerScore ++ ;
+    computerScoreDisplay.textContent = computerScore;
+  }
+
+
+};
+
+
